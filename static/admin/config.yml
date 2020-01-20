@@ -11,8 +11,14 @@ collections:
     label: Blog
     folder: blogs
     create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
     fields:
-      - { name: path, label: Path }
+      - {
+          name: path,
+          label: Path,
+          default: "/blogs/{{year}}-{{month}}-{{day}}-{{slug}}",
+          widget: hidden,
+        }
       - { name: date, label: Date, widget: date }
       - { name: title, label: Title }
       - { name: thumbnail, label: Featured Image, widget: image }

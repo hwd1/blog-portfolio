@@ -1,20 +1,25 @@
 import React from "react";
 import { graphql } from "gatsby";
-export default function Template({ data }) {
+import Layout from "../templates/DefaultLayout";
+import styled from "styled-components";
+const Container = styled.div`
+  max-width: 1200px;
+  text-align: center;
+  margin: auto;
+`;
+export default function blog({ data }) {
   const { markdownRemark } = data;
-  const { frontmatter, html } = markdownRemark;
+  const { frontmatter } = markdownRemark;
   return (
-    <div className="blog-post-container">
-      <div className="blog-post">
+    <Layout>
+      <Container>
         <h1>{frontmatter.title}</h1>
+        <image src={frontmatter.thumbnail} />
         <h2>{frontmatter.date}</h2>
-        <div
-          className="blog-post-content"
-          dangerouslySetInnerHTML={{ __html: html }}
-        />
-        <h1>hello world</h1>
-      </div>
-    </div>
+        <h2>{frontmatter.desc}</h2>
+        <h2>{frontmatter.body}</h2>
+      </Container>
+    </Layout>
   );
 }
 
@@ -23,10 +28,10 @@ export const pageQuery = graphql`
     markdownRemark(frontmatter: { path: { eq: $path } }) {
       html
       frontmatter {
-        date(formatString: "MMMM DD, YYYY")
+        date(formatString: "MM/DD/YYYY")
         title
-        thumbnail
         desc
+        thumbnail
         body
       }
     }

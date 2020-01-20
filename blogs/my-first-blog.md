@@ -1,8 +1,8 @@
 ---
-path: /blog/my-first-blog
+path: /blogs/my-first-blog
 date: 2018-01-11T00:00:00-05:00
-title: My First Blog
-thumbnail: /images/uploads/img1.jpg
-desc: My First Blog
-body: My First Blog
+title: Title of the First Blog
+thumbnail: img1.jpg
+desc: My First Blog Description
+body: My First Blog Body
 ---
