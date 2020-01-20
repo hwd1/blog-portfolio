@@ -1,6 +1,6 @@
 import React from "react";
 import { graphql } from "gatsby";
-import Layout from "../templates/DefaultLayout";
+import Layout from "./DefaultLayout";
 import styled from "styled-components";
 const Container = styled.div`
   max-width: 1200px;
