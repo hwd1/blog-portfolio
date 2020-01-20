@@ -1,14 +1,15 @@
 import React from "react";
-import img1 from "../../images/img1.jpg";
-import img2 from "../../images/img2.jpg";
-import img3 from "../../images/img3.jpg";
-import img4 from "../../images/img4.jpg";
+import img1 from "../images/img1.jpg";
+import img2 from "../images/img2.jpg";
+import img3 from "../images/img3.jpg";
+import img4 from "../images/img4.jpg";
 import styled from "styled-components";
 import { Link } from "gatsby";
 import ItemsCarousel from "react-items-carousel";
 const Container = styled.div`
   z-index: -1;
   height: 100%;
+  margin-top: 60px;
   .arrows {
     outline: none;
     border: none;
@@ -26,6 +27,7 @@ const Container = styled.div`
     height: 340px;
     background-position: center;
     background-size: cover;
+    overflow: hidden;
   }
   .carousel-card-1 {
     background-image: url(${img1});
@@ -72,25 +74,37 @@ const Container = styled.div`
     }
   }
 `;
-const noOfItems = 12;
-const noOfCards = 4;
+
+let noOfItems = 12;
 const autoPlayDelay = 6000;
 const chevronWidth = 80;
 
 export default class MyCarousel extends React.Component {
   state = {
-    activeItemIndex: 0
+    activeItemIndex: 0,
+    noOfCards: 4
   };
+  updateDimensions() {
+    let value = Math.floor(window.innerWidth / 330);
+    if (value > 4) {
+      value = 4;
+    }
+    this.setState({ noOfCards: `${value}` });
+  }
   componentDidMount() {
     this.interval = setInterval(this.tick, autoPlayDelay);
+    this.updateDimensions();
+    window.addEventListener("resize", this.updateDimensions.bind(this));
   }
   componentWillUnmount() {
+    this.updateDimensions();
+    window.removeEventListener("resize", this.updateDimensions.bind(this));
     clearInterval(this.interval);
   }
   tick = () =>
     this.setState(prevState => ({
       activeItemIndex:
-        (prevState.activeItemIndex + 1) % (noOfItems - noOfCards + 1)
+        (prevState.activeItemIndex + 1) % (noOfItems - this.state.noOfCards + 1)
     }));
   onChange = value => this.setState({ activeItemIndex: value });
 
@@ -101,7 +115,8 @@ export default class MyCarousel extends React.Component {
           infiniteLoop={true}
           activeItemIndex={this.state.activeItemIndex}
           requestToChangeActive={this.onChange}
-          numberOfCards={noOfCards}
+          numberOfCards={this.state.noOfCards}
+          noOfItems={noOfItems}
           leftChevron={<button className="arrows">&#10094;</button>}
           rightChevron={<button className="arrows">&#10095;</button>}
           chevronWidth={chevronWidth}

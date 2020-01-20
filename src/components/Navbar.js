@@ -2,10 +2,10 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { Link } from "gatsby";
 import Hamburger from "./Hamburger";
-import img1 from "../../images/img1.jpg";
-import img2 from "../../images/img2.jpg";
-import img3 from "../../images/img3.jpg";
-import img4 from "../../images/img4.jpg";
+import img1 from "../images/img1.jpg";
+import img2 from "../images/img2.jpg";
+import img3 from "../images/img3.jpg";
+import img4 from "../images/img4.jpg";
 import SideBar from "./SideBar";
 
 const Container = styled.div`
@@ -13,9 +13,13 @@ const Container = styled.div`
   font-weight: 600;
   height: 60px;
   background: #2d0a2e;
-  position: relative;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  z-index: 3;
   li {
     list-style: none;
+    color: #fff;
   }
   .nav-li {
     display: inline-block;
@@ -41,11 +45,11 @@ const Container = styled.div`
   }
   .mega-menu {
     background: #390b3c;
-    z-index: -1;
     opacity: 0;
-    transform: translateY(-10%);
+    transform: translateY(-5%);
     position: absolute;
     justify-content: space-evenly;
+    display: none;
   }
   .mega-menu h4 {
     transition: all 1s;
@@ -63,7 +67,6 @@ const Container = styled.div`
     position: static;
   }
   .droppable:hover .mega-menu {
-    z-index: 5;
     display: flex;
     flex-direction: row;
     transition: all 0.5s;
@@ -77,7 +80,7 @@ const Container = styled.div`
   }
   .mega-menu-2 {
     justify-content: left;
-    padding: 1em 2em 1em 1em;
+    padding: 1em 2em 1em 0em;
     li {
       cursor: pointer;
       margin: 1em 0em;
@@ -98,6 +101,7 @@ const Container = styled.div`
     height: 20px;
     margin: 20px 0px;
     text-transform: uppercase;
+    color: #fff;
   }
   img {
     width: 320px;
@@ -111,6 +115,11 @@ const Container = styled.div`
     width: 320px;
     height: 240px;
     overflow: hidden;
+  }
+  @media only screen and (max-width: 768px) {
+    .nav-li {
+      display: none;
+    }
   }
 `;
 function Navbar() {
@@ -140,7 +149,7 @@ function Navbar() {
               <ul>
                 <Link to="/">
                   <li className="img-li">
-                    <img src={img1} />
+                    <img src={img1} alt="image1" />
                   </li>
                   <h4>Lorem Ipsum is simply dummy text of the printing</h4>
                 </Link>
@@ -148,7 +157,7 @@ function Navbar() {
               <ul>
                 <Link to="/">
                   <li className="img-li">
-                    <img src={img2} />
+                    <img src={img2} alt="image2" />
                   </li>
                   <h4>Lorem Ipsum is simply dummy text of the printing</h4>
                 </Link>
@@ -156,7 +165,7 @@ function Navbar() {
               <ul>
                 <Link to="/">
                   <li className="img-li">
-                    <img src={img3} />
+                    <img src={img3} alt="image3" />
                   </li>
                   <h4>Lorem Ipsum is simply dummy text of the printing</h4>
                 </Link>
@@ -164,7 +173,7 @@ function Navbar() {
               <ul>
                 <Link to="/">
                   <li className="img-li">
-                    <img src={img4} />
+                    <img src={img4} alt="image4" />
                   </li>
                   <h4>Lorem Ipsum is simply dummy text of the printing</h4>
                 </Link>
@@ -173,7 +182,14 @@ function Navbar() {
           </li>
           <li className="nav-li">
             <p>
-              <Link to="/" className="link">
+              <Link to="./About" className="link">
+                ABOUT
+              </Link>
+            </p>
+          </li>
+          <li className="nav-li">
+            <p>
+              <Link to="./Contact" className="link">
                 Contact
               </Link>
             </p>
@@ -187,21 +203,45 @@ function Navbar() {
             <div className="mega-menu mega-menu-2">
               <ul>
                 <li>
-                  <Link to="/">Instagram</Link>
+                  <a
+                    href="https://www.instagram.com/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Instagram
+                  </a>
                 </li>
                 <li>
-                  <Link to="/">Twitter</Link>
+                  <a
+                    href="https://www.twitter.com/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Twitter
+                  </a>
                 </li>
                 <li>
-                  <Link to="/">Github</Link>
+                  <a
+                    href="https://www.github.com/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Github
+                  </a>
                 </li>
                 <li>
-                  <Link to="/">Linkden</Link>
+                  <a
+                    href="https://www.linkedin.com/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Linkden
+                  </a>
                 </li>
               </ul>
             </div>
           </li>
-          <li className="nav-li" onClick={() => openSideBar()}>
+          <li onClick={() => openSideBar()}>
             <Hamburger />
           </li>
         </ul>
