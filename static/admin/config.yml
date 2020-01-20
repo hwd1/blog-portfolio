@@ -9,18 +9,22 @@ public_folder: "/images/uploads"
 collections:
   - name: blog
     label: Blog
-    folder: blogs
+    folder: src/blogs
     create: true
-    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
     fields:
+      - { name: title, label: Title, required: true }
       - {
-          name: path,
-          label: Path,
-          default: "/blogs/{{year}}-{{month}}-{{day}}-{{slug}}",
-          widget: hidden,
+          name: thumbnail,
+          label: Featured Image,
+          widget: image,
+          required: true,
         }
-      - { name: date, label: Date, widget: date }
-      - { name: title, label: Title }
-      - { name: thumbnail, label: Featured Image, widget: image }
-      - { name: desc, label: Description }
-      - { name: body, label: Body, widget: markdown }
+      - { name: desc, label: Description, required: true }
+      - { name: body, label: Body, widget: markdown, required: true }
+      - {
+          name: date,
+          label: Date,
+          widget: "date",
+          format: "DD/MM/YYYY",
+          required: true,
+        }

@@ -25,7 +25,7 @@ export default function blog({ data }) {
 
 export const pageQuery = graphql`
   query BlogPostByPath($path: String!) {
-    markdownRemark(frontmatter: { path: { eq: $path } }) {
+    markdownRemark(frontmatter: { title: { eq: $path } }) {
       html
       frontmatter {
         date(formatString: "MM/DD/YYYY")
