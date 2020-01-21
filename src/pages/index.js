@@ -16,6 +16,7 @@ const Container = styled.div`
   }
   a {
     color: inherit;
+    margin-bottom: 2em;
     &:hover {
       color: inherit;
       text-decoration: none;

@@ -23,6 +23,20 @@ module.exports = {
         name: "markdown-pages"
       }
     },
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        name: `images`,
+        path: `${__dirname}/src/images`
+      }
+    },
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        name: `uploads`,
+        path: `static/images/uploads`
+      }
+    },
     `gatsby-transformer-remark`,
     `gatsby-plugin-sass`,
     {

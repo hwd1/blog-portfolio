@@ -4,7 +4,8 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   width: 302px;
-  margin: 0em 1em 2.5em 1em;
+  height: 100%;
+  margin: 0em 1em 0em 1em;
   background: #fcfcfc;
   transition: all 0.8s;
   &:hover {
@@ -18,6 +19,7 @@ const Container = styled.div`
   h5 {
     margin-top: 0.7em;
     padding: 0px 10px;
+    text-transform: capitalize;
   }
   p {
     text-align: justify;
@@ -28,7 +30,6 @@ const Container = styled.div`
   .time {
     color: #666;
     text-align: right;
-    margin-top: -1em;
     font-size: 14px;
   }
 `;

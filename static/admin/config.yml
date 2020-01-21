@@ -3,15 +3,14 @@ backend:
   branch: master
 
 publish_mode: editorial_workflow
-media_folder: "static/images/uploads"
-public_folder: /images/uploads"
+media_folder: "static/images/uploads/"
+public_folder: "static/images/uploads/"
 
 collections:
   - name: "blog"
     label: "Blog"
     folder: "src/blogs"
     create: true
-    format: "md"
     fields:
       - { name: "title", label: "Title", required: true }
       - {
