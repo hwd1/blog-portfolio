@@ -36,7 +36,7 @@ const Container = styled.div`
 function BlogCard({ img, title, desc, date }) {
   return (
     <Container>
-      <img src={require(`../images/${img}`)} alt={title} />
+      <img src={require(`../../static${img}`)} alt={title} />
       <h5>{title}</h5>
       <p className="desc">{desc}</p>
       <p className="time">{date}</p>

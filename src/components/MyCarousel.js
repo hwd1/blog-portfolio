@@ -1,10 +1,6 @@
 import React from "react";
-import img1 from "../images/img1.jpg";
-import img2 from "../images/img2.jpg";
-import img3 from "../images/img3.jpg";
-import img4 from "../images/img4.jpg";
 import styled from "styled-components";
-import { Link } from "gatsby";
+import { Link, graphql, StaticQuery } from "gatsby";
 import ItemsCarousel from "react-items-carousel";
 const Container = styled.div`
   z-index: -1;
@@ -29,18 +25,6 @@ const Container = styled.div`
     background-size: cover;
     overflow: hidden;
   }
-  .carousel-card-1 {
-    background-image: url(${img1});
-  }
-  .carousel-card-2 {
-    background-image: url(${img2});
-  }
-  .carousel-card-3 {
-    background-image: url(${img3});
-  }
-  .carousel-card-4 {
-    background-image: url(${img4});
-  }
   h4 {
     visibility: visible;
     -webkit-tap-highlight-color: transparent;
@@ -62,6 +46,7 @@ const Container = styled.div`
     top: 260px;
     width: 80%;
     margin: 0 10%;
+    transition: all 0.6s;
     &:hover {
       color: #c35794;
     }
@@ -79,7 +64,7 @@ let noOfItems = 12;
 const autoPlayDelay = 6000;
 const chevronWidth = 80;
 
-export default class MyCarousel extends React.Component {
+class MyCarousel extends React.Component {
   state = {
     activeItemIndex: 0,
     noOfCards: 4
@@ -89,7 +74,7 @@ export default class MyCarousel extends React.Component {
     if (value > 4) {
       value = 4;
     }
-    this.setState({ noOfCards: `${value}` });
+    this.setState({ noOfCards: value });
   }
   componentDidMount() {
     this.interval = setInterval(this.tick, autoPlayDelay);
@@ -122,28 +107,51 @@ export default class MyCarousel extends React.Component {
           chevronWidth={chevronWidth}
           className="carousel"
         >
-          <Link>
-            <div className="carousel-card carousel-card-1">
-              <h4>Lorem Ipsum is simply dummy text of the printing</h4>
-            </div>
-          </Link>
-          <Link>
-            <div className="carousel-card carousel-card-2">
-              <h4>Lorem Ipsum is simply dummy text of the printing</h4>
-            </div>
-          </Link>
-          <Link>
-            <div className="carousel-card carousel-card-3">
-              <h4>Lorem Ipsum is simply dummy text of the printing</h4>
-            </div>
-          </Link>
-          <Link>
-            <div className="carousel-card carousel-card-4">
-              <h4>Lorem Ipsum is simply dummy text of the printing</h4>
-            </div>
-          </Link>
+          {this.props.data.allMarkdownRemark.edges.map(({ node }) => (
+            <Link
+              to={`/blogs/${node.frontmatter.title.split(" ").join("-")}`}
+              key={node.id}
+            >
+              <div
+                className="carousel-card"
+                style={{
+                  backgroundImage: `url(${require(`../../static${node.frontmatter.thumbnail}`)})`
+                }}
+              >
+                <h4>{`This is the title of ${node.frontmatter.title}`}</h4>
+              </div>
+            </Link>
+          ))}
         </ItemsCarousel>
       </Container>
     );
   }
 }
+
+export default () => (
+  <StaticQuery
+    query={graphql`
+      query {
+        allMarkdownRemark(
+          sort: { order: DESC, fields: frontmatter___date }
+          limit: 8
+        ) {
+          edges {
+            node {
+              excerpt(pruneLength: 250)
+              html
+              id
+              frontmatter {
+                date
+                title
+                desc
+                thumbnail
+              }
+            }
+          }
+        }
+      }
+    `}
+    render={data => <MyCarousel data={data} />}
+  />
+);

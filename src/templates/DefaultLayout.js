@@ -1,7 +1,7 @@
 import React from "react";
 import Navbar from "../components/Navbar";
 import styled from "styled-components";
-import "../styles/app.css";
+import "../styles/app.scss";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Footer from "../components/Footer";
 

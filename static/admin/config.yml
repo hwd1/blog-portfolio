@@ -4,23 +4,24 @@ backend:
 
 publish_mode: editorial_workflow
 media_folder: "static/images/uploads"
-public_folder: "/images/uploads"
+public_folder: /images/uploads"
 
 collections:
-  - name: blog
-    label: Blog
-    folder: src/blogs
+  - name: "blog"
+    label: "Blog"
+    folder: "src/blogs"
     create: true
+    format: "md"
     fields:
-      - { name: title, label: Title, required: true }
+      - { name: "title", label: "Title", required: true }
       - {
-          name: thumbnail,
-          label: Featured Image,
-          widget: image,
+          name: "thumbnail",
+          label: "Featured Image",
+          widget: "image",
           required: true,
         }
-      - { name: desc, label: Description, required: true }
-      - { name: body, label: Body, widget: markdown, required: true }
+      - { name: "desc", label: "Description", required: true }
+      - { name: "body", label: "Body", widget: "markdown", required: true }
       - {
           name: date,
           label: Date,

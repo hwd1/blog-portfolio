@@ -11,6 +11,12 @@ module.exports = {
     `gatsby-plugin-netlify-cms`,
     `gatsby-plugin-styled-components`,
     {
+      resolve: `gatsby-plugin-scroll-reveal`,
+      options: {
+        once: false
+      }
+    },
+    {
       resolve: `gatsby-source-filesystem`,
       options: {
         path: `${__dirname}/src/blogs`,
@@ -18,6 +24,7 @@ module.exports = {
       }
     },
     `gatsby-transformer-remark`,
+    `gatsby-plugin-sass`,
     {
       resolve: `gatsby-plugin-manifest`,
       options: {

@@ -21,7 +21,6 @@ exports.createPages = ({ boundActionCreators, graphql }) => {
               title
               thumbnail
               desc
-              body
             }
           }
         }
@@ -34,9 +33,11 @@ exports.createPages = ({ boundActionCreators, graphql }) => {
 
     result.data.allMarkdownRemark.edges.forEach(({ node }) => {
       createPage({
-        path: `/blogs/${node.frontmatter.title}`,
+        path: `/blogs/${node.frontmatter.title.split(" ").join("-")}`,
         component: blogPostTemplate,
-        context: {}
+        context: {
+          title: node.frontmatter.title
+        }
       });
     });
   });

@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
 import Carousel from "../components/MyCarousel";
 import Layout from "../templates/DefaultLayout";
 import BlogCard from "../components/BlogCard";
 import styled from "styled-components";
-import { Link } from "gatsby";
+import { Link, graphql } from "gatsby";
 const Container = styled.div`
   .blogs {
     display: flex;
@@ -22,102 +22,56 @@ const Container = styled.div`
     }
   }
 `;
-const Index = () => {
-  const [blogs] = useState([
-    {
-      id: 1,
-      title: "Welcome to Gatsby",
-      img: "img1.jpg",
-      desc:
-        "Build an API driven static-site with Gatsby.js and use Ghost  headless CMS. Read more about how it works and how to use this starter theme here!",
-      date: "10/10/2019"
-    },
-    {
-      id: 2,
-      title: "Welcome to Gatsby",
-      img: "img2.jpg",
-      desc:
-        "Build an API driven static-site with Gatsby.js and use Ghost  headless CMS. Read more about how it works and how to use this starter theme here!",
-      date: "10/10/2019"
-    },
-    {
-      id: 3,
-      title: "Welcome to Gatsby",
-      img: "img3.jpg",
-      desc:
-        "Build an API driven static-site with Gatsby.js and use Ghost  headless CMS. Read more about how it works and how to use this starter theme here!",
-      date: "10/10/2019"
-    },
-    {
-      id: 4,
-      title: "Welcome to Gatsby",
-      img: "img4.jpg",
-      desc:
-        "Build an API driven static-site with Gatsby.js and use Ghost  headless CMS. Read more about how it works and how to use this starter theme here!",
-      date: "10/10/2019"
-    },
-    {
-      id: 5,
-      title: "Welcome to Gatsby",
-      img: "img1.jpg",
-      desc:
-        "Build an API driven static-site with Gatsby.js and use Ghost  headless CMS. Read more about how it works and how to use this starter theme here!",
-      date: "10/10/2019"
-    },
-    {
-      id: 6,
-      title: "Welcome to Gatsby",
-      img: "img2.jpg",
-      desc:
-        "Build an API driven static-site with Gatsby.js and use Ghost  headless CMS. Read more about how it works and how to use this starter theme here!",
-      date: "10/10/2019"
-    },
-    {
-      id: 7,
-      title: "Welcome to Gatsby",
-      img: "img3.jpg",
-      desc:
-        "Build an API driven static-site with Gatsby.js and use Ghost  headless CMS. Read more about how it works and how to use this starter theme here!",
-      date: "10/10/2019"
-    },
-    {
-      id: 8,
-      title: "Welcome to Gatsby",
-      img: "img4.jpg",
-      desc:
-        "Build an API driven static-site with Gatsby.js and use Ghost  headless CMS. Read more about how it works and how to use this starter theme here!",
-      date: "10/10/2019"
-    },
-    {
-      id: 9,
-      title: "Welcome to Gatsby",
-      img: "img1.jpg",
-      desc:
-        "Build an API driven static-site with Gatsby.js and use Ghost  headless CMS. Read more about how it works and how to use this starter theme here!",
-      date: "10/10/2019"
-    }
-  ]);
+
+const IndexPage = ({
+  data: {
+    allMarkdownRemark: { edges }
+  }
+}) => {
   return (
     <Container>
       <Layout>
         <Carousel />
         <div className="blogs">
-          {blogs.map(blog => (
-            <div key={blog.id}>
-              <Link to="./">
-                <BlogCard
-                  title={blog.title}
-                  img={blog.img}
-                  desc={blog.desc}
-                  date={blog.date}
-                />
-              </Link>
-            </div>
+          {edges.map(({ node }) => (
+            <Link
+              to={`/blogs/${node.frontmatter.title.split(" ").join("-")}`}
+              key={node.id}
+            >
+              <BlogCard
+                title={node.frontmatter.title}
+                img={node.frontmatter.thumbnail}
+                desc={node.frontmatter.desc}
+                date={node.frontmatter.date}
+              />
+            </Link>
           ))}
         </div>
       </Layout>
     </Container>
   );
 };
+export default IndexPage;
 
-export default Index;
+export const blogs = graphql`
+  query {
+    allMarkdownRemark(
+      sort: { order: DESC, fields: frontmatter___date }
+      limit: 1000
+    ) {
+      edges {
+        node {
+          excerpt(pruneLength: 250)
+          html
+          id
+          frontmatter {
+            date
+            title
+            desc
+            thumbnail
+          }
+        }
+      }
+    }
+  }
+`;

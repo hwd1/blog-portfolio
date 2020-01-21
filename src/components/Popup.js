@@ -1,5 +1,5 @@
-import React from "react"
-
+import React from "react";
+import "../styles/popup.scss";
 const Popup = props => {
   return (() => {
     if (props.type === "sucess") {
@@ -31,7 +31,7 @@ const Popup = props => {
             </div>
           </div>
         </div>
-      )
+      );
     } else if (props.type === "error") {
       return (
         <div className="popup">
@@ -59,11 +59,11 @@ const Popup = props => {
             </div>
           </div>
         </div>
-      )
+      );
     } else {
-      return ""
+      return "";
     }
-  })()
-}
+  })();
+};
 
-export default Popup
+export default Popup;

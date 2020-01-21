@@ -1,11 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { Link } from "gatsby";
+import { Link, graphql, StaticQuery } from "gatsby";
 import Hamburger from "./Hamburger";
-import img1 from "../images/img1.jpg";
-import img2 from "../images/img2.jpg";
-import img3 from "../images/img3.jpg";
-import img4 from "../images/img4.jpg";
 import SideBar from "./SideBar";
 
 const Container = styled.div`
@@ -51,18 +47,6 @@ const Container = styled.div`
     justify-content: space-evenly;
     display: none;
   }
-  .mega-menu h4 {
-    transition: all 1s;
-    width: 320px;
-    color: #fff;
-    font-size: 18px;
-    margin-top: 10px;
-    text-transform: uppercase;
-    font-weight: 700px;
-    &:hover {
-      color: #c35794;
-    }
-  }
   .droppable {
     position: static;
   }
@@ -73,10 +57,15 @@ const Container = styled.div`
     transform: translateY(0%);
     opacity: 1;
   }
+  .droppable:hover .mega-menu-1 {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+  }
   .mega-menu-1 {
     width: 100%;
     left: 0;
     padding: 5em;
+    grid-column-gap: 1em;
   }
   .mega-menu-2 {
     justify-content: left;
@@ -107,22 +96,61 @@ const Container = styled.div`
     width: 320px;
     height: 240px;
     transition: all 1s;
-    &:hover {
-      transform: scale(1.1);
-    }
-  }
-  .img-li {
-    width: 320px;
-    height: 240px;
-    overflow: hidden;
   }
   @media only screen and (max-width: 768px) {
     .nav-li {
       display: none;
     }
   }
+  .carousel-card {
+    height: 340px;
+    width: 100%;
+    background-position: center;
+    background-size: cover;
+    overflow: hidden;
+  }
+  h4 {
+    visibility: visible;
+    -webkit-tap-highlight-color: transparent;
+    transition: all 0.6s;
+    user-select: none;
+    letter-spacing: 0.035em;
+    vertical-align: baseline;
+    font-family: Catamaran, sans-serif;
+    text-transform: uppercase;
+    font-weight: 800;
+    color: #000;
+    word-wrap: break-word;
+    font-size: 18px;
+    padding: 0.198em 0.4em 0.3em;
+    line-height: 1.126em;
+    background-size: 100% 80%;
+    background-repeat: no-repeat;
+    background: #fff;
+    position: relative;
+    top: 260px;
+    width: 80%;
+    margin: 0 10%;
+    &:hover {
+      color: #c35794;
+    }
+  }
+  a {
+    &:hover {
+      text-decoration: none;
+      color: inherit;
+    }
+  }
+  @media only screen and (max-width: 900px) {
+    .carousel-card-link:last-child {
+      display: none;
+    }
+    .droppable:hover .mega-menu-1 {
+      grid-template-columns: 1fr 1fr 1fr;
+    }
+  }
 `;
-function Navbar() {
+function Navbar({ data }) {
   const [SideBarIsActive, toggleSideBar] = useState(false);
   const openSideBar = () => {
     toggleSideBar(true);
@@ -146,38 +174,22 @@ function Navbar() {
               </Link>
             </p>
             <div className="mega-menu mega-menu-1">
-              <ul>
-                <Link to="/">
-                  <li className="img-li">
-                    <img src={img1} alt="image1" />
-                  </li>
-                  <h4>Lorem Ipsum is simply dummy text of the printing</h4>
+              {data.allMarkdownRemark.edges.map(({ node }) => (
+                <Link
+                  to={`/blogs/${node.frontmatter.title.split(" ").join("-")}`}
+                  key={node.id}
+                  className="carousel-card-link"
+                >
+                  <div
+                    className="carousel-card"
+                    style={{
+                      backgroundImage: `url(${require(`../../static${node.frontmatter.thumbnail}`)})`
+                    }}
+                  >
+                    <h4>{`This is the title of ${node.frontmatter.title}`}</h4>
+                  </div>
                 </Link>
-              </ul>
-              <ul>
-                <Link to="/">
-                  <li className="img-li">
-                    <img src={img2} alt="image2" />
-                  </li>
-                  <h4>Lorem Ipsum is simply dummy text of the printing</h4>
-                </Link>
-              </ul>
-              <ul>
-                <Link to="/">
-                  <li className="img-li">
-                    <img src={img3} alt="image3" />
-                  </li>
-                  <h4>Lorem Ipsum is simply dummy text of the printing</h4>
-                </Link>
-              </ul>
-              <ul>
-                <Link to="/">
-                  <li className="img-li">
-                    <img src={img4} alt="image4" />
-                  </li>
-                  <h4>Lorem Ipsum is simply dummy text of the printing</h4>
-                </Link>
-              </ul>
+              ))}
             </div>
           </li>
           <li className="nav-li">
@@ -254,4 +266,30 @@ function Navbar() {
   );
 }
 
-export default Navbar;
+export default () => (
+  <StaticQuery
+    query={graphql`
+      query {
+        allMarkdownRemark(
+          sort: { order: DESC, fields: frontmatter___date }
+          limit: 4
+        ) {
+          edges {
+            node {
+              excerpt(pruneLength: 250)
+              html
+              id
+              frontmatter {
+                date
+                title
+                desc
+                thumbnail
+              }
+            }
+          }
+        }
+      }
+    `}
+    render={data => <Navbar data={data} />}
+  />
+);
