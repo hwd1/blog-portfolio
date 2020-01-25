@@ -74,8 +74,11 @@ const SideBar = ({ toggleSideBar, SideBarIsActive }) => {
   return (
     <Container>
       <nav className={SideBarIsActive ? `SideBar-active` : ``}>
-        <div onClick={() => closeSideBar()}>
-          <Hamburger top="10px" color="#fff" right="3em" />
+        <div
+          onClick={() => closeSideBar()}
+          style={{ position: "absolute", right: "5em", top: "1em" }}
+        >
+          <Hamburger />
         </div>
         <div className="sidebar-content">
           <Link to="/">

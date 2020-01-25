@@ -1,11 +1,9 @@
 import React from "react";
 import styled from "styled-components";
 
-function Hmburger({ top, right, color }) {
+function Hmburger() {
   const Container = styled.div`
     .Hamburger {
-      right: ${right};
-      top: ${top};
       position: absolute;
       width: 24px;
       height: 24px;
@@ -15,7 +13,7 @@ function Hmburger({ top, right, color }) {
         position: absolute;
         height: 2px;
         width: 24px;
-        background: ${color};
+        background: #555;
         border-radius: 4px;
         transform-origin: 0 50%;
       }

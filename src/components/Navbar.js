@@ -313,8 +313,11 @@ function Navbar({ data, location }) {
               </ul>
             </div>
           </li>
-          <li onClick={() => openSideBar()}>
-            <Hamburger top="143px" color="#444" right="3em" />
+          <li
+            onClick={() => openSideBar()}
+            style={{ position: "absolute", right: "5em", marginTop: "0.6em" }}
+          >
+            <Hamburger />
           </li>
         </ul>
       </Container>

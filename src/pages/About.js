@@ -2,6 +2,7 @@ import React from "react";
 import Img from "gatsby-image";
 import styled from "styled-components";
 import Layout from "../templates/DefaultLayout";
+import { graphql } from "gatsby";
 const Container = styled.div`
   .mh-about {
     height: 100%;

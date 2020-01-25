@@ -12,7 +12,7 @@ const Container = styled.div`
     max-width: 1400px;
     margin: auto;
     margin-bottom: 5em;
-    margin-top: 250px;
+    margin-top: 300px;
   }
   a {
     color: inherit;
