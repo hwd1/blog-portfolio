@@ -7,15 +7,33 @@ import SideBar from "./SideBar";
 const Container = styled.div`
   font-family: "Montserrat", sans-serif;
   font-weight: 600;
-  height: 60px;
-  background: #2d0a2e;
   position: absolute;
   top: 0;
   width: 100%;
-  z-index: 3;
+  z-index: 20;
+  height: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  ul {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    max-width: 1400px;
+    margin: auto;
+  }
+  .logo {
+    margin-top: 30px;
+    margin-bottom: 10px;
+    width: 220px;
+    height: 80px;
+  }
   li {
     list-style: none;
-    color: #fff;
+    color: #333;
+    font-weight: 700;
   }
   .nav-li {
     display: inline-block;
@@ -30,13 +48,13 @@ const Container = styled.div`
     }
   }
   .link {
-    color: #fff;
+    color: #333;
     transition: all 0.6s;
     padding: 10px 15px;
     &:hover {
       text-decoration: none;
-      color: #000;
-      background: #fff;
+      color: #fff;
+      background: #390b3c;
     }
   }
   .mega-menu {
@@ -64,18 +82,24 @@ const Container = styled.div`
   .mega-menu-1 {
     width: 100%;
     left: 0;
-    padding: 5em;
+    padding: 5em 5em 3em 5em;
     grid-column-gap: 1em;
   }
   .mega-menu-2 {
     justify-content: left;
-    padding: 1em 2em 1em 0em;
+    padding: 1em 2em 1em 1em;
+    ul {
+      flex-direction: column;
+    }
     li {
       cursor: pointer;
       margin: 1em 0em;
       width: 100%;
       transition: all 0.6s;
       padding: 10px 15px;
+      a {
+        color: #fff;
+      }
       &:hover {
         a {
           color: #000;
@@ -90,7 +114,7 @@ const Container = styled.div`
     height: 20px;
     margin: 20px 0px;
     text-transform: uppercase;
-    color: #fff;
+    color: #333;
   }
   img {
     width: 320px;
@@ -150,26 +174,48 @@ const Container = styled.div`
     }
   }
 `;
-function Navbar({ data }) {
+function Navbar({ data, location }) {
   const [SideBarIsActive, toggleSideBar] = useState(false);
   const openSideBar = () => {
     toggleSideBar(true);
-    console.log(SideBarIsActive);
   };
   return (
     <div>
       <Container>
-        <ul className="container">
+        <ul>
+          <img
+            src={require("../images/logo.png")}
+            alt="logo"
+            className="logo"
+          />
+        </ul>
+        <ul className="second-ul">
           <li className="nav-li">
             <p>
-              <Link className="link" to="/">
+              <Link
+                className="link"
+                to="/"
+                style={
+                  location === "/"
+                    ? { color: "#fff", background: "#390b3c" }
+                    : {}
+                }
+              >
                 Home
               </Link>
             </p>
           </li>
           <li className="droppable nav-li">
             <p>
-              <Link className="link" to="/">
+              <Link
+                className="link"
+                to="./blogs"
+                style={
+                  location === "blogs"
+                    ? { color: "#fff", background: "#390b3c" }
+                    : {}
+                }
+              >
                 Blogs
               </Link>
             </p>
@@ -194,23 +240,37 @@ function Navbar({ data }) {
           </li>
           <li className="nav-li">
             <p>
-              <Link to="./About" className="link">
+              <Link
+                to="./About"
+                className="link"
+                style={
+                  location === "about"
+                    ? { color: "#fff", background: "#390b3c" }
+                    : {}
+                }
+              >
                 ABOUT
               </Link>
             </p>
           </li>
           <li className="nav-li">
             <p>
-              <Link to="./Contact" className="link">
+              <Link
+                to="./Contact"
+                className="link"
+                style={
+                  location === "contact"
+                    ? { color: "#fff", background: "#390b3c" }
+                    : {}
+                }
+              >
                 Contact
               </Link>
             </p>
           </li>
           <li className="droppable nav-li">
             <p>
-              <Link className="link" to="/">
-                Follow
-              </Link>
+              <a className="link">Follow</a>
             </p>
             <div className="mega-menu mega-menu-2">
               <ul>
@@ -254,7 +314,7 @@ function Navbar({ data }) {
             </div>
           </li>
           <li onClick={() => openSideBar()}>
-            <Hamburger />
+            <Hamburger top="143px" color="#444" right="3em" />
           </li>
         </ul>
       </Container>
@@ -266,7 +326,7 @@ function Navbar({ data }) {
   );
 }
 
-export default () => (
+export default ({ location }) => (
   <StaticQuery
     query={graphql`
       query {
@@ -290,6 +350,6 @@ export default () => (
         }
       }
     `}
-    render={data => <Navbar data={data} />}
+    render={data => <Navbar data={data} location={location} />}
   />
 );

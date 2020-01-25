@@ -14,7 +14,7 @@ const Container = styled.div`
     background: #2d0a2e;
     white-space: nowrap;
     overflow: hidden;
-    z-index: 5;
+    z-index: 25;
     color: #fff;
   }
   .sidebar-content {
@@ -75,7 +75,7 @@ const SideBar = ({ toggleSideBar, SideBarIsActive }) => {
     <Container>
       <nav className={SideBarIsActive ? `SideBar-active` : ``}>
         <div onClick={() => closeSideBar()}>
-          <Hamburger />
+          <Hamburger top="10px" color="#fff" right="3em" />
         </div>
         <div className="sidebar-content">
           <Link to="/">

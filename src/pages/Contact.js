@@ -3,7 +3,6 @@ import Popup from "../components/Popup";
 import styled from "styled-components";
 import Layout from "../templates/DefaultLayout";
 const Container = styled.div`
-  background: #e8e8e8;
   height: 100%;
   min-height: calc(100vh - 121px);
   text-align: center;
@@ -13,7 +12,10 @@ const Container = styled.div`
   align-items: center;
   h3 {
     text-align: center;
-    margin-bottom: 2em;
+    margin-bottom: 1em;
+    margin-top: 5em;
+    text-transform: uppercase;
+    font-weight: 700;
   }
   input {
     height: 3em;
@@ -64,9 +66,9 @@ const Contact = () => {
     e.preventDefault();
   };
   return (
-    <Layout>
+    <Layout location="contact">
       <Container>
-        <h3>Contact Me</h3>
+        <h3>Feel free to Contact Me</h3>
         <form
           name="contact"
           method="POST"

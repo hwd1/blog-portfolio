@@ -4,6 +4,8 @@ thumbnail: /images/uploads/img3.jpg
 desc: >-
   Build an API driven static-site with Gatsby.js and use Ghost headless CMS.
 date: 22/01/2020
+category: Education
+tags: Education
 ---
 
 A starter template to build lightning fast websites with [Ghost](https://ghost.org) & [Gatsby](https://gatsbyjs.org)

@@ -6,6 +6,8 @@ const Container = styled.div`
   font-size: 14px;
   background: #2d0a2e;
   width: 100%;
+  max-width: 1920px;
+  margin: auto;
   .site-foot-nav {
     display: flex;
     flex-wrap: wrap;

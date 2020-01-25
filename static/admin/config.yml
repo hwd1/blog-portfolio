@@ -21,6 +21,8 @@ collections:
         }
       - { name: "desc", label: "Description", required: true }
       - { name: "body", label: "Body", widget: "markdown", required: true }
+      - { name: "category", label: "Category", widget: "List", required: true }
+      - { name: "tags", label: "Tags", widget: "List", required: true }
       - {
           name: date,
           label: Date,

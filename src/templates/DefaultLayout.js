@@ -13,10 +13,10 @@ const Container = styled.div`
     width: 100%;
   }
 `;
-const DefaultLayout = ({ data, children }) => {
+const DefaultLayout = ({ data, children, location }) => {
   return (
     <Container>
-      <Navbar />
+      <Navbar location={location} />
       <main className="site-main">{children}</main>
       <Footer className="footer" />
     </Container>

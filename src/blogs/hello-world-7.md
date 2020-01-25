@@ -1,10 +1,12 @@
 ---
 title: hello world 7
-thumbnail: /images/uploads/img2.jpg
+thumbnail: /images/uploads/img5.jpg
 desc: >-
   Build an API driven static-site with Gatsby.js and use Ghost headless CMS.
   Read more about how it works and how to use this starter theme here!
 date: 23/01/2020
+category: Education
+tags: Education
 ---
 
 A starter template to build lightning fast websites with [Ghost](https://ghost.org) & [Gatsby](https://gatsbyjs.org)

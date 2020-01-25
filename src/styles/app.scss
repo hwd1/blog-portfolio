@@ -15,3 +15,11 @@
   color: #621367;
   background: #fff;
 }
+body::-webkit-scrollbar {
+  width: 0.45em;
+  background-color: #fff;
+}
+
+body::-webkit-scrollbar-thumb {
+  background-color: #2d0a2e;
+}

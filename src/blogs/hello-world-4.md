@@ -5,6 +5,8 @@ desc: >-
   Build an API driven static-site with Gatsby.js and use Ghost headless CMS.
   Read more about how it works and how to use this starter theme here!
 date: 15/01/2020
+category: Sience
+tags: Sience
 ---
 
 A starter template to build lightning fast websites with [Ghost](https://ghost.org) & [Gatsby](https://gatsbyjs.org)

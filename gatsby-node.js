@@ -21,6 +21,8 @@ exports.createPages = ({ boundActionCreators, graphql }) => {
               title
               thumbnail
               desc
+              category
+              tags
             }
           }
         }
@@ -36,7 +38,8 @@ exports.createPages = ({ boundActionCreators, graphql }) => {
         path: `/blogs/${node.frontmatter.title.split(" ").join("-")}`,
         component: blogPostTemplate,
         context: {
-          title: node.frontmatter.title
+          title: node.frontmatter.title,
+          img: `${node.frontmatter.thumbnail.replace("/images/uploads/", "")}`
         }
       });
     });

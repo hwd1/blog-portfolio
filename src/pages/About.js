@@ -1,5 +1,5 @@
 import React from "react";
-import svg from "../images/ab-img.png";
+import Img from "gatsby-image";
 import styled from "styled-components";
 import Layout from "../templates/DefaultLayout";
 const Container = styled.div`
@@ -25,6 +25,7 @@ const Container = styled.div`
   h2 {
     text-align: center;
     margin-bottom: 2em;
+    margin-top: 4em;
   }
   .mh-about-tag {
     word-break: break-all;
@@ -51,17 +52,21 @@ const Container = styled.div`
     text-decoration: none;
   }
 `;
-function About() {
+function About({ data }) {
   return (
     <Container>
-      <Layout>
+      <Layout location="about">
         <section className="mh-about" id="mh-about">
           <div className="container">
             <h2>About Me</h2>
             <div className="row section-separator">
               <div className="col-sm-12 col-md-6">
                 <div className="mh-about-img shadow-2">
-                  <img src={svg} loading="lazy" alt="" className="img-fluid" />
+                  <Img
+                    fluid={data.file.childImageSharp.fluid}
+                    alt="svg"
+                    className="img-fluid"
+                  />
                 </div>
               </div>
               <div className="col-sm-12 col-md-6">
@@ -104,7 +109,7 @@ function About() {
                     data-wow-duration="0.8s"
                     data-wow-delay="0.4s"
                   >
-                    Downlaod CV
+                    View CV
                   </a>
                 </div>
               </div>
@@ -117,3 +122,15 @@ function About() {
 }
 
 export default About;
+
+export const query = graphql`
+  query {
+    file(relativePath: { eq: "ab-img.png" }) {
+      childImageSharp {
+        fluid {
+          ...GatsbyImageSharpFluid
+        }
+      }
+    }
+  }
+`;
