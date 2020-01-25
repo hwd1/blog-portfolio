@@ -14,7 +14,7 @@ function BlogCard({ img, title, desc, date, width, height }) {
       background: #f4f4f4;
     }
     img {
-      width: ${width ? width : "290px"};
+      width: 100%;
       height: 250px;
       border-radius: 3px;
     }
@@ -37,9 +37,9 @@ function BlogCard({ img, title, desc, date, width, height }) {
     @media only screen and (max-width: 400px) {
       width: 300px;
       margin: 0em;
-    }
-    img {
-      width: 300px;
+      img {
+        width: 300px;
+      }
     }
   `;
 
